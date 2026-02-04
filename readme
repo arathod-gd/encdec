@@ -1,0 +1,12 @@
+Stage 6 program run using cli
+
+arathod@C19698 encdec % java -cp src/main/java org.stage6.Main \
+-mode enc \
+-key 5 \
+-alg unicode \
+-in src/main/java/org/stage6/inpute.txt \
+-out src/main/java/org/stage6/encryptedfiles/protected.txt
+
+
+
+
