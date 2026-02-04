@@ -4,6 +4,6 @@ public class Main {
     }
 
     public static String printString(){
-        return new String("Aditya Rathod");
+        return new String("Encryption Decryption Program!!");
     }
 }
