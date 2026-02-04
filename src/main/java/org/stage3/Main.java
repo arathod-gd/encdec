@@ -8,6 +8,7 @@ public class Main {
 
         String mode = scanner.nextLine();   // enc or dec
         String text = scanner.nextLine();   // message
+        text = text.toLowerCase();
         int key = scanner.nextInt();        // key
 
         if (mode.equals("enc")) {

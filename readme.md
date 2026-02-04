@@ -77,8 +77,21 @@ Shifts all characters (letters, digits, symbols).
 
 Example
 javac src/main/java/org/stage5/Main.java
-java -cp src/main/java org.stage5.Main -mode enc -key 5 -data "Hello!""         -> """ used because terminal terminal shows dquote>
-java -cp src/main/java org.stage5.Main -mode enc -key 5 -data inpute.txt        -> you can use file or data direct!!
+
+using data:
+> java -cp src/main/java org.stage5.Main -mode enc -key 5 -data "hello"
+mjqqt
+
+> java -cp src/main/java org.stage5.Main -mode dec -key 5 -data "mjqqt"
+hello
+
+
+using files
+enc:
+java -cp src/main/java org.stage5.Main -mode enc -key 5 -in src/main/java/org/stage5/encryptedfiles/input.txt -out src/main/java/org/stage5/encryptedfiles/encrypted.txt
+
+dec:
+java -cp src/main/java org.stage5.Main -mode dec -key 5 -in src/main/java/org/stage5/encryptedfiles/encrypted.txt -out src/main/java/org/stage5/encryptedfiles/decrypted.txt
 
 
 
@@ -124,3 +137,6 @@ java -cp src/main/java org.stage6.Main \
 -alg unicode \
 -in src/main/java/org/stage6/inpute.txt \
 -out src/main/java/org/stage6/encryptedfiles/protected.txt
+
+
+
