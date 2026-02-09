@@ -5,6 +5,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
+
+
+    //main method testing
+    @Test
+    void encTest(){
+        String[] args = {"-mode", "enc", "-key", "5", "-data", "hello"};
+        org.stage6.Main.main(args);
+    }
+
+    @Test
+    void decTest(){
+        String[] args = {"-mode", "dec", "-key", "5", "-data", "mjqqt"};
+        org.stage6.Main.main(args);
+    }
+
+
     // ---------- UNICODE ----------
 
     @Test

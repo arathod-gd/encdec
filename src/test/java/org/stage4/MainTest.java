@@ -7,6 +7,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class MainTest {
 
     @Test
+    void mainEncrypt() {
+        String[] args = {"-mode", "enc", "-key", "5", "-data", "hello"};
+        Main.main(args);
+    }
+
+    @Test
+    void mainDecrypt() {
+        String[] args = {"-mode", "dec", "-key", "5", "-data", "mjqqt"};
+        Main.main(args);
+    }
+
+    @Test
     void encrypt() {
         String input = "mjqqt";
         int key = 5;

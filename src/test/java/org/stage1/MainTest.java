@@ -1,15 +1,15 @@
 package org.stage1;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
-    Main main = new Main();
-
 
     @org.junit.jupiter.api.Test
     void encOutput() {
         String check = "dv ulfmw z givzhfiv!";
-        String presentMain = main.encOutput();
+        String presentMain = Main.encOutput();
 
         assertEquals(check, presentMain);
     }
