@@ -63,7 +63,7 @@ New arguments
 
 run  :
 javac -d out src/main/java/org/stage4/Main.java
-java -cp out org.stage5.Main -mode enc -key 5 -data "Hello"
+java -cp out org.stage4.Main -mode enc -key 5 -data "Hello"
 
 
 
