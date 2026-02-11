@@ -1,35 +1,35 @@
 package org.stage4;
 
 import org.junit.jupiter.api.Test;
-
+import java.io.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
+    private String captureOutput(Runnable r) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PrintStream old = System.out;
+        System.setOut(new PrintStream(out));
+        r.run();
+        System.setOut(old);
+        return out.toString().trim();
+    }
+
     @Test
     void mainEncrypt() {
-        String[] args = {"-mode", "enc", "-key", "5", "-data", "hello"};
-        Main.main(args);
+        String[] args = {"-mode","enc","-key","5","-data","hello"};
+        assertEquals("mjqqt", captureOutput(() -> Main.main(args)));
     }
 
     @Test
     void mainDecrypt() {
-        String[] args = {"-mode", "dec", "-key", "5", "-data", "mjqqt"};
-        Main.main(args);
+        String[] args = {"-mode","dec","-key","5","-data","mjqqt"};
+        assertEquals("hello", captureOutput(() -> Main.main(args)));
     }
 
     @Test
-    void encrypt() {
-        String input = "mjqqt";
-        int key = 5;
-
-        assertEquals(input, Main.encrypt("hello", 5));
-    }
-
-    @Test
-    void decrypt() {
-        String input = "hello";
-        int key = 5;
-        assertEquals(input, Main.decrypt("mjqqt", 5));
+    void defaultValuesUsed() {
+        String[] args = {};
+        assertEquals("", captureOutput(() -> Main.main(args)));
     }
 }

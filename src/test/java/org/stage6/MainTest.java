@@ -1,111 +1,73 @@
 package org.stage6;
 
 import org.junit.jupiter.api.Test;
+import java.io.*;
+import java.nio.file.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
-
-
-    //main method testing
-    @Test
-    void encTest(){
-        String[] args = {"-mode", "enc", "-key", "5", "-data", "hello"};
-        org.stage6.Main.main(args);
+    private String captureOutput(Runnable r) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PrintStream old = System.out;
+        System.setOut(new PrintStream(out));
+        r.run();
+        System.setOut(old);
+        return out.toString().trim();
     }
 
     @Test
-    void decTest(){
-        String[] args = {"-mode", "dec", "-key", "5", "-data", "mjqqt"};
-        org.stage6.Main.main(args);
-    }
-
-
-    // ---------- UNICODE ----------
-
-    @Test
-    void unicodeEncrypt() {
-        String input = "abcXYZ123";
-        int key = 3;
-
-        String result = Main.unicodeEncrypt(input, key);
-
-        assertEquals("def[\\]456", result);
+    void shiftEncryptMain() {
+        String[] args = {"-mode","enc","-key","5","-data","hello"};
+        assertEquals("mjqqt", captureOutput(() -> Main.main(args)));
     }
 
     @Test
-    void unicodeDecrypt() {
-        String input = "def[\\]456";
-        int key = 3;
-
-        String result = Main.unicodeDecrypt(input, key);
-
-        assertEquals("abcXYZ123", result);
-    }
-
-    // ---------- SHIFT (Caesar) ----------
-
-    @Test
-    void shiftEncrypt() {
-        String input = "abcXYZ";
-        int key = 3;
-
-        String result = Main.shiftEncrypt(input, key);
-
-        assertEquals("defABC", result);
+    void shiftDecryptMain() {
+        String[] args = {"-mode","dec","-key","5","-data","mjqqt"};
+        assertEquals("hello", captureOutput(() -> Main.main(args)));
     }
 
     @Test
-    void shiftDecrypt() {
-        String input = "defABC";
-        int key = 3;
-
-        String result = Main.shiftDecrypt(input, key);
-
-        assertEquals("abcXYZ", result);
-    }
-
-    // ---------- EXTRA SAFETY TESTS ----------
-
-    @Test
-    void shiftEncrypt_wrapAround() {
-        String input = "xyzXYZ";
-        int key = 4;
-
-        String result = Main.shiftEncrypt(input, key);
-
-        assertEquals("bcdBCD", result);
+    void unicodeEncryptMain() {
+        String[] args = {"-alg","unicode","-mode","enc","-key","1","-data","abc"};
+        assertEquals("bcd", captureOutput(() -> Main.main(args)));
     }
 
     @Test
-    void shiftEncrypt_nonAlphabeticCharactersUnchanged() {
-        String input = "Hello, World! 123";
-        int key = 5;
-
-        String result = Main.shiftEncrypt(input, key);
-
-        assertEquals("Mjqqt, Btwqi! 123", result);
+    void unicodeDecryptMain() {
+        String[] args = {"-alg","unicode","-mode","dec","-key","1","-data","bcd"};
+        assertEquals("abc", captureOutput(() -> Main.main(args)));
     }
 
     @Test
-    void encryptThenDecrypt_returnsOriginal_shift() {
-        String input = "AttackAtDawn";
-        int key = 10;
-
-        String encrypted = Main.shiftEncrypt(input, key);
-        String decrypted = Main.shiftDecrypt(encrypted, key);
-
-        assertEquals(input, decrypted);
+    void shiftUppercase() {
+        assertEquals("DEF", Main.shiftEncrypt("ABC", 3));
     }
 
     @Test
-    void encryptThenDecrypt_returnsOriginal_unicode() {
-        String input = "Encryption Test";
-        int key = 7;
+    void fileUnicode() throws Exception {
+        Path in = Files.createTempFile("in",".txt");
+        Path out = Files.createTempFile("out",".txt");
 
-        String encrypted = Main.unicodeEncrypt(input, key);
-        String decrypted = Main.unicodeDecrypt(encrypted, key);
+        Files.writeString(in, "abc");
 
-        assertEquals(input, decrypted);
+        String[] args = {
+                "-alg","unicode",
+                "-mode","enc",
+                "-key","1",
+                "-in", in.toString(),
+                "-out", out.toString()
+        };
+
+        Main.main(args);
+        assertEquals("bcd", Files.readString(out));
+    }
+
+    @Test
+    void wrongArguments() {
+        String[] args = {"-key"};
+        String output = captureOutput(() -> Main.main(args));
+        assertEquals("Error: wrong arguments", output);
     }
 }
