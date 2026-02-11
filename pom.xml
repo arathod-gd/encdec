@@ -30,6 +30,12 @@
 
     <build>
         <plugins>
+            <!-- Maven Wrapper -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-wrapper-plugin</artifactId>
+                <version>3.3.4</version>
+            </plugin>
 
             <!-- Compiler -->
             <plugin>
@@ -81,6 +87,7 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.8.6.0</version>
+
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
@@ -90,6 +97,8 @@
                 </configuration>
             </plugin>
 
+
+            <!-- PMD Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -111,6 +120,8 @@
                 </executions>
             </plugin>
 
+
+            <!-- Checkstyle Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -132,6 +143,8 @@
                 </configuration>
             </plugin>
 
+
+            <!-- JXR Plugin it creates html file for java source codes -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
@@ -140,7 +153,5 @@
 
         </plugins>
     </build>
-
-
 
 </project>
