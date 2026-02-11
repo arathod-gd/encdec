@@ -140,3 +140,9 @@ java -cp src/main/java org.stage6.Main \
 
 
 
+
+
+
+---Maven Wrapper
+Wrap with maven using : mvn -N wrapper:wrapper
+use : ./mvnw clean install
