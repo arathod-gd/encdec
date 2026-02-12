@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
+    //unit testing
+
     private String captureOutput(Runnable r) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream old = System.out;

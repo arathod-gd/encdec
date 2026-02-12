@@ -16,6 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.0</junit.version>
         <jacoco.version>0.8.14</jacoco.version>
+        <mockito.version>5.7.0</mockito.version>
     </properties>
 
     <dependencies>
@@ -30,12 +31,6 @@
 
     <build>
         <plugins>
-            <!-- Maven Wrapper -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-wrapper-plugin</artifactId>
-                <version>3.3.4</version>
-            </plugin>
 
             <!-- Compiler -->
             <plugin>
@@ -87,7 +82,6 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.8.6.0</version>
-
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
@@ -97,54 +91,30 @@
                 </configuration>
             </plugin>
 
-
-            <!-- PMD Plugin -->
+            <!-- PMD -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.21.0</version>
-
                 <configuration>
                     <printFailingErrors>true</printFailingErrors>
                     <failOnViolation>true</failOnViolation>
-                    <linkXRef>true</linkXRef>
                 </configuration>
-
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
-
-            <!-- Checkstyle Plugin -->
+            <!-- Checkstyle -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.2.2</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
-                    <!-- Use Google Java Style or create your own rules -->
                     <configLocation>google_checks.xml</configLocation>
-                    <!--          <encoding>UTF-8</encoding>-->
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                 </configuration>
             </plugin>
 
-
-            <!-- JXR Plugin it creates html file for java source codes -->
+            <!-- JXR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
@@ -153,5 +123,4 @@
 
         </plugins>
     </build>
-
 </project>
