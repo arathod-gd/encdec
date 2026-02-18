@@ -9,9 +9,18 @@ class MainTest {
 
     //unit testing
 
+    /*
+    * This method captures console output of some code and
+    * returns it as a string so you can assert it in tests.*/
     private String captureOutput(Runnable r) {
+
+        //temporary box to store output
         ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        //capture everything printed on screen
         PrintStream old = System.out;
+
+        //everything printed goto out instead of console
         System.setOut(new PrintStream(out));
         r.run();
         System.setOut(old);
